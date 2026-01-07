@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Facundo Dias</title>
+    <style>
+        /* --- 1. CONFIGURACIÓN CSS (VARIABLES) --- */
+        :root {
+            --bg-color: #0f172a;       /* Azul oscuro casi negro */
+            --text-color: #e2e8f0;     /* Blanco suave */
+            --accent-color: #38bdf8;   /* Azul cielo (toque tecnológico) */
+            --secondary-text: #94a3b8; /* Gris para subtítulos */
+            --card-bg: #1e293b;        /* Fondo de tarjetas */
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- 2. ESTILOS GENERALES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- 3. ESTRUCTURA & LAYOUT --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 40px 0;
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- 4. HERO SECTION (BIENVENIDA CON FOTO) --- */
+        .hero {
+            padding-top: 80px;
+            padding-bottom: 40px;
+            min-height: 70vh; /* Un poco más alto para que entre la foto */
+        }
+
+        /* Contenedor que pone Texto | Foto */
+        .hero-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px; /* Espacio entre texto y foto */
+        }
+
+        .hero-text-area {
+            flex: 1; /* Ocupa el espacio restante */
+            text-align: left;
+        }
+
+        .hero-img-area {
+            flex: 0 0 280px; /* Tamaño fijo para la zona de la foto */
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Estilo de la Foto de Perfil */
+        .profile-pic {
+            width: 280px;
+            height: 280px;
+            object-fit: cover; /* Recorta la imagen para que no se deforme */
+            border-radius: 50%; /* La hace redonda (cámbialo a 20px si la quieres cuadrada) */
+            border: 4px solid var(--accent-color); /* Borde azul tecnológico */
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2); /* Resplandor suave */
+            transition: var(--transition);
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Tipografía Hero */
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            height: 30px; 
+        }
+
+        .hero p {
+            max-width: 600px;
+            color: var(--secondary-text);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Botones */
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--bg-color) !important;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-color) !important;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: rgba(56, 189, 248, 0.15); 
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.2);
+            color: var(--accent-color) !important;
+        }
+
+        body.light-mode .btn-primary {
+            color: #ffffff !important;
+        }
+
+        /* --- 5. SECCIÓN SOBRE MI & SKILLS --- */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 1px;
+            background-color: var(--secondary-text);
+            margin-left: 20px;
+            opacity: 0.5;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            background-color: var(--card-bg);
+            color: var(--accent-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* --- 6. TARJETAS & PDF --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .card span { color: var(--accent-color); font-size: 0.85rem; display: block; margin-bottom: 15px; }
+        .card p { color: var(--secondary-text); font-size: 0.95rem; }
+
+        /* Estilos Imagen y PDF en Tarjetas */
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card-pdf-viewer {
+            width: 100%;
+            height: 200px;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background-color: #eee;
+        }
+
+        /* --- 7. ANIMACIONES & UTILS --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- 8. MEDIA QUERIES (CELULAR) --- */
+        @media (max-width: 768px) {
+            /* Cambio importante para celular: apilar contenido */
+            .hero-content-wrapper {
+                flex-direction: column-reverse; /* Foto arriba, texto abajo */
+                text-align: center;
+                gap: 30px;
+            }
+
+            .hero-text-area { text-align: center; }
+            .hero p { margin-left: auto; margin-right: auto; } /* Centrar párrafo */
+            .hero-btns { justify-content: center; } /* Centrar botones */
+
+            /* Ajuste tamaño foto en celular */
+            .profile-pic { width: 200px; height: 200px; }
+            
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            section { padding: 60px 0; min-height: auto; }
+            .hero { padding-top: 100px; padding-bottom: 60px; }
+        }
+
+        /* --- 9. MODO CLARO --- */
+        .theme-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .theme-btn:hover { transform: rotate(15deg) scale(1.1); }
+
+        body.light-mode {
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --accent-color: #0369a1;
+            --secondary-text: #64748b;
+            --card-bg: #ffffff;
+        }
+
+        body.light-mode .card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">☀️</button>
+    <main class="container">
+        
+        <section id="hero" class="hero hidden">
+            <div class="hero-content-wrapper">
+                
+                <div class="hero-text-area">
+                    <h1 id="name-placeholder"></h1> 
+                    <h2 id="role-placeholder" class="typing-cursor"></h2> 
+                    <p id="bio-short-placeholder"></p>
+                    <div class="hero-btns">
+                        <a href="mailto:facudias2018@gmail.com" class="btn btn-primary">Contáctame</a>
+                        <a href="https://www.linkedin.com/in/facundo-dias-53a851340/" target="_blank" class="btn btn-primary">LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="hero-img-area">
+                    <img src="https://via.placeholder.com/300" alt="Facundo Dias" class="profile-pic">
+                </div>
+
+            </div>
+        </section>
+
+        <section id="about" class="hidden">
+            <h2 class="section-title">Sobre Mí</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p id="about-long-placeholder" style="color: var(--secondary-text); margin-bottom: 20px;"></p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 15px;">Habilidades Técnicas</h3>
+                    <div id="skills-list" class="skills-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trajectory" class="hidden">
+            <h2 class="section-title">Trayectoria & Formación</h2>
+            <div id="cards-container" class="cards-grid"></div>
+        </section>
+
+        <section id="academic-experience" class="hidden">
+            <h2 class="section-title">Experiencia Académica</h2>
+            <div id="academic-cards-container" class="cards-grid"></div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Portafolio personal de Facundo Dias.</p>
+        </footer>
+    </main>
+
+    <script>
+        const portfolioData = {
+            name: "Facundo Dias",
+            roles: [
+                "Maestro Mayor de Obras",
+                "Estudiante de Ingeniería Civil",
+                "Entusiasta de la Tecnología"
+            ],
+            shortBio: "Fusionando la construcción tradicional con la lógica de la ingeniería de sistemas para crear soluciones estructurales eficientes.",
+            longBio: "Mi perfil es híbrido. Comencé mi camino técnico como Maestro Mayor de Obras, entendiendo la construcción desde los cimientos. Actualmente avanzo en Ingeniería Civil, pero mi paso previo por Ingeniería en Sistemas me dotó de una capacidad analítica y lógica única, permitiéndome abordar los problemas de obra con una mentalidad orientada a la optimización y la tecnología.",
+            skills: ["Gestión de Obra", "AutoCAD 2D y 3D (Avanzado)", "Python (Básico)", "Lógica de Programación", "Revit/BIM (Básico)", "HTML/CSS", "Legajista", "Proyectista", "SketchUP", "Renders"],
+            trajectory: [
+                {
+                    title: "Ingeniería Civil",
+                    subtitle: "Estudiante Actual",
+                    desc: "Focalizado en estructuras y materiales. Aplicando metodologías de cálculo."
+                },
+                {
+                    title: "Ingeniería en Sistemas (1° año lectivo)",
+                    subtitle: "Formación Previa (2025)",
+                    desc: "Adquisición de lógica algorítmica, bases de datos y pensamiento computacional aplicado a procesos y desarrollo web."
+                },
+                {
+                    title: "Maestro Mayor de Obras",
+                    subtitle: "Título Técnico 2018 - 2024",
+                    desc: "Habilitado para proyectar y dirigir obras. Experiencia práctica en documentación técnica y normativas."
+                }
+            ],
+            academicExperience: [
+                {
+                    title: "Legajo de obra",
+                    subtitle: "Maestro Mayor de Obras (Practicas profecionalizantes)",
+                    desc: "Finalización legajista de una casa de dos pisos abarcando practicamente todo lo normativo excepto el calculo estructural.",
+                    file: "archivo.pdf" 
+                },
+                {
+                    title: "Plano Municipal (pre-legajo)",
+                    subtitle: "Maestro Mayor de Obras (Practicas profecionalizantes)",
+                    desc: "Planificación y diseño de una casa de dos pisos, aplicando diseño estructural y normativa municipal.",
+                    file: "archivo.pdf"
+                },
+                {
+                    title: "Instalaciones",
+                    subtitle: "Maestro Mayor de Obras (Instalaciones)",
+                    desc: "Representación y planificación de una casa entre medianeras con instalaciones.",
+                    file: "archivo.pdf"
+                },
+                {
+                    title: "Portafolio",
+                    subtitle: "Desarrollo y diseño web",
+                    desc: "Proyecto propio para autoaprendizaje y demostracion de habilidades en HTML, CSS y JS.",
+                    image: "https://via.placeholder.com/400x250/0369a1/FFFFFF?text=Instalaciones"
+                },
+                {
+                    title: "",
+                    subtitle: "",
+                    desc: "",
+                    image: "https://via.placeholder.com/400x250/0369a1/FFFFFF?text=Instalaciones"
+                },
+                {
+                    title: "",
+                    subtitle: "",
+                    desc: "",
+                    image: "https://via.placeholder.com/400x250/0369a1/FFFFFF?text=Instalaciones"
+                }
+            ]
+        };
+
+        // --- LÓGICA DE RENDERIZADO ---
+
+        document.getElementById('name-placeholder').textContent = portfolioData.name;
+        document.getElementById('bio-short-placeholder').textContent = portfolioData.shortBio;
+        document.getElementById('about-long-placeholder').textContent = portfolioData.longBio;
+
+        const skillsContainer = document.getElementById('skills-list');
+        portfolioData.skills.forEach(skill => {
+            const span = document.createElement('span');
+            span.className = 'skill-tag';
+            span.textContent = skill;
+            skillsContainer.appendChild(span);
+        });
+
+        const cardsContainer = document.getElementById('cards-container');
+        portfolioData.trajectory.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <h3>${item.title}</h3>
+                <span>${item.subtitle}</span>
+                <p>${item.desc}</p>
+            `;
+            cardsContainer.appendChild(card);
+        });
+
+        // Lógica de Experiencia Académica (PDF + Imágenes)
+        const academicCardsContainer = document.getElementById('academic-cards-container');
+        portfolioData.academicExperience.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            let mediaHtml = '';
+            if (item.file && item.file.toLowerCase().endsWith('.pdf')) {
+                 // Es un PDF
+                 mediaHtml = `<iframe src="${item.file}#toolbar=0" class="card-pdf-viewer"></iframe>`;
+            } else if (item.image) {
+                 // Es una Imagen
+                 mediaHtml = `<img src="${item.image}" alt="${item.title}" class="card-img">`;
+            } else if (item.file) {
+                 // Es un archivo que no es PDF (ej: imagen local), lo tratamos como img
+                 mediaHtml = `<img src="${item.file}" alt="${item.title}" class="card-img">`;
+            }
+
+            // Link opcional de descarga/apertura
+            let linkHtml = '';
+            if (item.file && item.file.toLowerCase().endsWith('.pdf')) {
+                linkHtml = `<a href="${item.file}" target="_blank" style="color: var(--accent-color); font-size: 0.8rem; text-decoration: underline; margin-top: 10px; display: block;">Abrir PDF completo</a>`;
+            }
+
+            card.innerHTML = `
+                ${mediaHtml}
+                <h3>${item.title}</h3>
+                <span>${item.subtitle}</span>
+                <p>${item.desc}</p>
+                ${linkHtml}
+            `;
+            academicCardsContainer.appendChild(card);
+        });
+
+        // Typewriter Effect
+        const roleElement = document.getElementById('role-placeholder');
+        let roleIndex = 0, charIndex = 0, isDeleting = false;
+        
+        function typeWriter() {
+            const currentRole = portfolioData.roles[roleIndex];
+            roleElement.textContent = isDeleting ? currentRole.substring(0, charIndex - 1) : currentRole.substring(0, charIndex + 1);
+            charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentRole.length) { typeSpeed = 2000; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % portfolioData.roles.length; typeSpeed = 500; }
+            setTimeout(typeWriter, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', typeWriter);
+
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('show');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+
+        // Theme Toggle
+        const toggleBtn = document.getElementById('theme-toggle');
+        const bodyElement = document.body;
+        toggleBtn.addEventListener('click', () => {
+            bodyElement.classList.toggle('light-mode');
+            toggleBtn.textContent = bodyElement.classList.contains('light-mode') ? '🌙' : '☀️';
+        });
+    </script>
+</body>
+</html>
